@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 const errorController = require('./controllers/error')
 
 const barNebraskaRoutes = require('./routes/barNebraska')
+const port = process.env.PORT || 4000
 
 const uri = 'mongodb+srv://codescripters:Cs.2019@codescripters-1hxt3.mongodb.net/barNebraska?retryWrites=true&w=majority'
 const options = {
@@ -34,7 +35,7 @@ app.use(errorController.get404)
 mongoose.connect(uri, options)
     .then(res => {
         console.dir('Runing on port 8080')
-        app.listen(8080)
+        app.listen(port)
     })
 
     .catch(err => {
