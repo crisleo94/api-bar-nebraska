@@ -1,7 +1,7 @@
-const Contact = require('../models/contact');
-const nodemailer = require("nodemailer");
-const sendgrid = require("nodemailer-sendgrid-transport");
-const path = require('path');
+const Contact = require('../models/contact')
+const nodemailer = require("nodemailer")
+const sendgrid = require("nodemailer-sendgrid-transport")
+const path = require('path')
 
 const transporter = nodemailer.createTransport(sendgrid({
     auth: {
@@ -10,9 +10,24 @@ const transporter = nodemailer.createTransport(sendgrid({
 }));
 
 exports.savecontact = (req, res, next) => {
-    const email = req.body.email;
-    const message = req.body.message;
-
+    const email = req.body.email
+    const message = req.body.message
+    const subjectSend = `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Success!!</title>
+    </head>
+    <body>
+        <h1>Nueva Respuesta Registrada</h1>
+        <p>El usuario ${ email } ha dejado una opinión en su sitio web</p>
+        <p> ${ message } </p>
+    </body>
+    </html>
+`
     const contact = new Contact({
         email: email,
         message: message
@@ -21,23 +36,21 @@ exports.savecontact = (req, res, next) => {
         .then(result => {
             console.log(result);
             transporter.sendMail({
-                to: 'creinoso@lean-tech.io',
+                to: 'cristianreinoso.mgvc@gmail.com',
                 from: email,
-                subject: 'New contact from you BarNebraska website',
-                html: message
-            });
-            return res.status(201).json({
-                message: 'Contact entry saved correctly'
-            });
+                subject: 'Han dejado una opinión en tu BarNebraska',
+                html: 'subjectSend'
+            })
+            return res.status(201).sendFile(path.join(__dirname, '../views/201.html'))
         })
         .catch(err => {
             if (!err.statusCode) {
                 err.statusCode = 500;
             }
-            next(err);
-        });
-};
+            next(err)
+        })
+}
 
 exports.getIndex = (req, res, next) => {
-    res.status(201).sendFile(path.join(__dirname, '../views/201.html'));
-};
+    return res.sendFile(path.join(__dirname, '../views/201.html'))
+}
