@@ -21,7 +21,7 @@ app.use(barNebraskaRoutes)
 
 app.use((error, req, res, next) => {
     console.log(error)
-    const status = error.statusCoode || 500;
+    const status = error.statusCoode || 500
     const message = error.message
     res.status(status).json({
         message: message,
@@ -31,9 +31,9 @@ app.use((error, req, res, next) => {
 
 app.use(errorController.get404)
 
-// mongoose.connect('mongodb://localhost:27017/barNebraska', {useNewUrlParser: true})
 mongoose.connect(uri, options)
     .then(res => {
+        console.dir('Runing on port 8080')
         app.listen(8080)
     })
 
