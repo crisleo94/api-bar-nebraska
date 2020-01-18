@@ -34,18 +34,17 @@ exports.savecontact = (req, res, next) => {
     });
     contact.save()
         .then(result => {
-            console.log(result);
             transporter.sendMail({
                 to: 'cristianreinoso.mgvc@gmail.com',
                 from: email,
                 subject: 'Han dejado una opinión en tu BarNebraska',
-                html: 'subjectSend'
+                html: subjectSend
             })
             return res.status(201).sendFile(path.join(__dirname, '../views/201.html'))
         })
         .catch(err => {
             if (!err.statusCode) {
-                err.statusCode = 500;
+                err.statusCode = 500
             }
             next(err)
         })
