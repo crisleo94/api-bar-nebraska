@@ -14,11 +14,6 @@ const options = {
 
 const app = express()
 
-const uri = 'mongodb+srv://codescripters:Zr74VyE.kXtNrw5@codescripters-1hxt3.mongodb.net/test?retryWrites=true&w=majority';
-const options = {
-    useNewUrlParser: true
-};
-
 app.use(cors());
 app.use(bodyParser.json());
 
