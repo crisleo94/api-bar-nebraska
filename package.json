@@ -21,9 +21,13 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
+    "dot-prop": "4.2.1",
     "express": "^4.17.1",
+    "lodash": "4.17.21",
+    "minimist": "1.2.3",
     "mongoose": "^5.8.9",
-    "nodemailer": "^6.4.2",
+    "mquery": "3.2.3",
+    "nodemailer": "6.4.16",
     "nodemailer-sendgrid-transport": "^0.2.0",
     "nodemon": "^2.0.2"
   }
